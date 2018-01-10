@@ -35,13 +35,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void registerListener();
 
     protected void setSourceCodeUrl() {
-        sourceCodeUrl = getString(R.string.source_code_url);
         String simplePackageName = getLocalClassName();
         if (simplePackageName.contains(".")) {
+            sourceCodeUrl = getString(R.string.source_code_url);
+
             simplePackageName = simplePackageName.substring(0, simplePackageName.lastIndexOf("."));
-        }
-        if (!"".equals(simplePackageName)) {
-            sourceCodeUrl += "/" + simplePackageName;
+            if (!"".equals(simplePackageName)) {
+                sourceCodeUrl += "/" + simplePackageName;
+            }
+        } else {
+            sourceCodeUrl = getString(R.string.github_repo_url);
         }
 
         tv_code = findViewById(R.id.tv_code);
