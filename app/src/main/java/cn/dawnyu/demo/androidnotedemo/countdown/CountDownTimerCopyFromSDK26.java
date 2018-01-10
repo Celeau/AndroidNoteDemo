@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.dawnyu.demo.androidnotedemo.Countdown;
+package cn.dawnyu.demo.androidnotedemo.countdown;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
@@ -49,14 +49,14 @@ import android.util.Log;
  */
 
 /**
- * Copy from SDK 25 's CountDownTimer.
- * SDK 25 CountDownTimer 的源码副本。
+ * Copy from SDK 26 's CountDownTimer.
+ * SDK 26 CountDownTimer 的源码副本。
  * 仅增加了中文注释和 Log 打印代码。(注释为 Add 的代码)
  * <p>
  * date 2018/1/9
  */
-public abstract class CountDownTimerCopyFromSDK25 {
-    String TAG = "CountDownTimer-25";//Add
+public abstract class CountDownTimerCopyFromSDK26 {
+    String TAG = "CountDownTimer-26";//Add
 
     /**
      * Millis since epoch when alarm should stop.
@@ -82,7 +82,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
      * @param countDownInterval The interval along the way to receive
      *                          {@link #onTick(long)} callbacks.
      */
-    public CountDownTimerCopyFromSDK25(long millisInFuture, long countDownInterval) {
+    public CountDownTimerCopyFromSDK26(long millisInFuture, long countDownInterval) {
         mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
     }
@@ -98,7 +98,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
     /**
      * Start the countdown.
      */
-    public synchronized final CountDownTimerCopyFromSDK25 start() {
+    public synchronized final CountDownTimerCopyFromSDK26 start() {
         mCancelled = false;
         if (mMillisInFuture <= 0) {
             onFinish();
@@ -106,12 +106,11 @@ public abstract class CountDownTimerCopyFromSDK25 {
         }
 
         //Add
-        Log.i(TAG, "start → mMillisInFuture = " + mMillisInFuture + ", seconds = " + mMillisInFuture / 1000 % 60);
+        Log.i(TAG, "start → mMillisInFuture = " + mMillisInFuture + ", seconds = " + mMillisInFuture / 1000 );
 
         mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
 
         //Add
-        Log.i(TAG, "start → elapsedRealtime = " + SystemClock.elapsedRealtime());
         Log.i(TAG, "start → mStopTimeInFuture = " + mStopTimeInFuture);
 
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
@@ -142,7 +141,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
         @Override
         public void handleMessage(Message msg) {
 
-            synchronized (CountDownTimerCopyFromSDK25.this) {
+            synchronized (CountDownTimerCopyFromSDK26.this) {
                 if (mCancelled) {
                     return;
                 }
@@ -151,43 +150,55 @@ public abstract class CountDownTimerCopyFromSDK25 {
 
                 //Add
                 Log.i(TAG, "handleMessage → elapsedRealtime = " + SystemClock.elapsedRealtime());
-                Log.i(TAG, "handleMessage → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 % 60);
+                Log.i(TAG, "handleMessage → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 );
 
                 if (millisLeft <= 0) {
                     //Add
                     Log.i(TAG, "onFinish → millisLeft = " + millisLeft);
 
                     onFinish();
-                } else if (millisLeft < mCountdownInterval) {
-                    //Add
-                    Log.i(TAG, "handleMessage → millisLeft < mCountdownInterval !");
-
-                    // no tick, just delay until done
-                    sendMessageDelayed(obtainMessage(MSG), millisLeft);
                 } else {
                     long lastTickStart = SystemClock.elapsedRealtime();
 
                     //Add
                     Log.i(TAG, "before onTick → lastTickStart = " + lastTickStart);
-                    Log.i(TAG, "before onTick → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 % 60);
+                    Log.i(TAG, "before onTick → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 );
 
                     onTick(millisLeft);
 
-                    //Add
-                    Log.i(TAG, "after onTick → elapsedRealtime = " + SystemClock.elapsedRealtime());
-
                     // take into account user's onTick taking time to execute
-                    long delay = lastTickStart + mCountdownInterval - SystemClock.elapsedRealtime();
+                    long lastTickDuration = SystemClock.elapsedRealtime() - lastTickStart;
+                    long delay;
 
                     //Add
-                    Log.i(TAG, "after onTick → delay1 = " + delay);
+                    Log.i(TAG, "after onTick → lastTickDuration = " + lastTickDuration);
 
-                    // special case: user's onTick took more than interval to
-                    // complete, skip to next interval
-                    while (delay < 0) delay += mCountdownInterval;
+                    if (millisLeft < mCountdownInterval) {
+                        // just delay until done
+                        delay = millisLeft - lastTickDuration;
 
-                    //Add
-                    Log.i(TAG, "after onTick → delay2 = " + delay);
+                        //Add
+                        Log.i(TAG, "after onTick → delay1 = " + delay);
+
+                        // special case: user's onTick took more than interval to
+                        // complete, trigger onFinish without delay
+                        if (delay < 0) delay = 0;
+
+                        //Add
+                        Log.i(TAG, "after onTick → delay2 = " + delay);
+                    } else {
+                        delay = mCountdownInterval - lastTickDuration;
+
+                        //Add
+                        Log.i(TAG, "after onTick → delay1 = " + delay);
+
+                        // special case: user's onTick took more than interval to
+                        // complete, skip to next interval
+                        while (delay < 0) delay += mCountdownInterval;
+
+                        //Add
+                        Log.i(TAG, "after onTick → delay2 = " + delay);
+                    }
 
                     sendMessageDelayed(obtainMessage(MSG), delay);
                 }

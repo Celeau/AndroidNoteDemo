@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import cn.dawnyu.demo.androidnotedemo.Countdown.CountdownActivity;
+import cn.dawnyu.demo.androidnotedemo.countdown.CountdownActivity;
 
 public class MainActivity extends BaseActivity {
     private Button btn_countdown;
