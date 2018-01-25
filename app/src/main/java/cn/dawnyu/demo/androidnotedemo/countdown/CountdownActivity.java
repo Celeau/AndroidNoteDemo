@@ -26,7 +26,8 @@ public class CountdownActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_countdown);
+        setView(R.layout.activity_countdown);
+        setBlogUrl("http://blog.csdn.net/u013719138/article/details/79012459#t1");
         super.onCreate(savedInstanceState);
 
         sb_log = new StringBuilder();

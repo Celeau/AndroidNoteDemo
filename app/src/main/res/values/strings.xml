@@ -4,4 +4,5 @@
     <string name="source_code_url">https://github.com/DawnYu9/AndroidNoteDemo/tree/master/app/src/main/java/cn/dawnyu/demo/androidnotedemo</string>
     <string name="github_repo_url">https://github.com/DawnYu9/AndroidNoteDemo</string>
     <string name="see_code">see source code on github</string>
+    <string name="see_blog">see blog</string>
 </resources>
