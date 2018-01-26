@@ -3,6 +3,7 @@ package cn.dawnyu.demo.androidnotedemo.countdown;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,9 @@ import cn.dawnyu.demo.androidnotedemo.R;
  */
 
 public class CountdownActivity extends BaseActivity {
+    private static final String BLOG_URL = "http://blog.csdn.net/u013719138/article/details/79012459#t1";
+    private final String TAG = getClass().getSimpleName();
+
     private Button btn_start_countdown_timer25, btn_start_countdown_timer26, btn_clear_log;
     private EditText et_countdown_timer25, et_countdown_timer26;
     private TextView tv_log;
@@ -27,7 +31,7 @@ public class CountdownActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setView(R.layout.activity_countdown);
-        setBlogUrl("http://blog.csdn.net/u013719138/article/details/79012459#t1");
+        setBlogUrl(BLOG_URL);
         super.onCreate(savedInstanceState);
 
         sb_log = new StringBuilder();
@@ -131,12 +135,17 @@ public class CountdownActivity extends BaseActivity {
             sb_log.append("\n");
         }
         if (isOnTick) {
+            Log.i(TAG + "-Timer-" + sdkVersion,
+                    "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
+
             sb_log.append(SystemClock.elapsedRealtime())
                     .append("ms → SDK-")
                     .append(sdkVersion)
                     .append(" → onTick → ")
                     .append(millisUntilFinished / 1000).append("s");
         } else {
+            Log.i(TAG + "-Timer-" + sdkVersion, "onFinish");
+
             sb_log.append(SystemClock.elapsedRealtime()).append("ms → SDK-")
                     .append(sdkVersion)
                     .append(" → onFinish")
