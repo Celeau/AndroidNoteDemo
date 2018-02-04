@@ -13,7 +13,7 @@
             android:id="@+id/btn_start_countdown_timer25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startCountdownTimerFromSDK25"
+            android:text="startCountdownTimerFromAPI25"
             android:textAllCaps="false" />
 
         <EditText
@@ -33,7 +33,7 @@
             android:id="@+id/btn_start_countdown_timer26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startCountdownTimerFromSDK26"
+            android:text="startCountdownTimerFromAPI26"
             android:textAllCaps="false" />
 
         <EditText

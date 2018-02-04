@@ -24,8 +24,8 @@ public class CountdownActivity extends BaseActivity {
     private EditText et_countdown_timer25, et_countdown_timer26;
     private TextView tv_log;
 
-    private CountDownTimerCopyFromSDK25 countDownTimerFromSDK25;
-    private CountDownTimerCopyFromSDK26 countDownTimerFromSDK26;
+    private CountDownTimerCopyFromAPI25 countDownTimerFromAPI25;
+    private CountDownTimerCopyFromAPI26 countDownTimerFromAPI26;
     private StringBuilder sb_log;
 
     @Override
@@ -61,10 +61,10 @@ public class CountdownActivity extends BaseActivity {
     protected void myClicker(View view) {
         switch (view.getId()) {
             case R.id.btn_start_countdown_timer25:
-                startCountdownTimerFromSDK25();
+                startCountdownTimerFromAPI25();
                 break;
             case R.id.btn_start_countdown_timer26:
-                startCountdownTimerFromSDK26();
+                startCountdownTimerFromAPI26();
                 break;
             case R.id.btn_clear_log:
                 clearLog();
@@ -72,16 +72,16 @@ public class CountdownActivity extends BaseActivity {
         }
     }
 
-    private void startCountdownTimerFromSDK25() {
-        if (countDownTimerFromSDK25 != null) {
-            countDownTimerFromSDK25.cancel();
+    private void startCountdownTimerFromAPI25() {
+        if (countDownTimerFromAPI25 != null) {
+            countDownTimerFromAPI25.cancel();
         }
 
         Long time = getTime(et_countdown_timer25);
 
         updateLogTitle(time);
 
-        countDownTimerFromSDK25 = new CountDownTimerCopyFromSDK25(time, 1000) {
+        countDownTimerFromAPI25 = new CountDownTimerCopyFromAPI25(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 updateLog(millisUntilFinished, 25, true);
@@ -94,16 +94,16 @@ public class CountdownActivity extends BaseActivity {
         }.start();
     }
 
-    private void startCountdownTimerFromSDK26() {
-        if (countDownTimerFromSDK26 != null) {
-            countDownTimerFromSDK26.cancel();
+    private void startCountdownTimerFromAPI26() {
+        if (countDownTimerFromAPI26 != null) {
+            countDownTimerFromAPI26.cancel();
         }
 
         Long time = getTime(et_countdown_timer26);
 
         updateLogTitle(time);
 
-        countDownTimerFromSDK26 = new CountDownTimerCopyFromSDK26(time, 1000) {
+        countDownTimerFromAPI26 = new CountDownTimerCopyFromAPI26(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 updateLog(millisUntilFinished, 26, true);
@@ -139,14 +139,14 @@ public class CountdownActivity extends BaseActivity {
                     "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
 
             sb_log.append(SystemClock.elapsedRealtime())
-                    .append("ms → SDK-")
+                    .append("ms → API-")
                     .append(sdkVersion)
                     .append(" → onTick → ")
                     .append(millisUntilFinished / 1000).append("s");
         } else {
             Log.i(TAG + "-Timer-" + sdkVersion, "onFinish");
 
-            sb_log.append(SystemClock.elapsedRealtime()).append("ms → SDK-")
+            sb_log.append(SystemClock.elapsedRealtime()).append("ms → API-")
                     .append(sdkVersion)
                     .append(" → onFinish")
                     .append("\n-----------------------------");

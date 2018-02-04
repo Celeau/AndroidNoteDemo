@@ -49,13 +49,13 @@ import android.util.Log;
  */
 
 /**
- * Copy from SDK 25 's CountDownTimer.
- * SDK 25 CountDownTimer 的源码副本。
+ * Copy from API 25 's CountDownTimer.
+ * API 25 CountDownTimer 的源码副本。
  * 仅增加了中文注释和 Log 打印代码。(注释为 Add 的代码)
  * <p>
  * date 2018/1/9
  */
-public abstract class CountDownTimerCopyFromSDK25 {
+public abstract class CountDownTimerCopyFromAPI25 {
     String TAG = "CountDownTimer-25";//Add
 
     /**
@@ -82,7 +82,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
      * @param countDownInterval The interval along the way to receive
      *                          {@link #onTick(long)} callbacks.
      */
-    public CountDownTimerCopyFromSDK25(long millisInFuture, long countDownInterval) {
+    public CountDownTimerCopyFromAPI25(long millisInFuture, long countDownInterval) {
         mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
     }
@@ -98,7 +98,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
     /**
      * Start the countdown.
      */
-    public synchronized final CountDownTimerCopyFromSDK25 start() {
+    public synchronized final CountDownTimerCopyFromAPI25 start() {
         mCancelled = false;
         if (mMillisInFuture <= 0) {
             onFinish();
@@ -142,7 +142,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
         @Override
         public void handleMessage(Message msg) {
 
-            synchronized (CountDownTimerCopyFromSDK25.this) {
+            synchronized (CountDownTimerCopyFromAPI25.this) {
                 if (mCancelled) {
                     return;
                 }
