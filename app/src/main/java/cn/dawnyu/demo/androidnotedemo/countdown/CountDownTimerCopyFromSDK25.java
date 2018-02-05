@@ -177,6 +177,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
                     Log.i(TAG, "after onTick → elapsedRealtime = " + SystemClock.elapsedRealtime());
 
                     // take into account user's onTick taking time to execute
+                    // 考虑到用户执行 onTick 需要时间
                     long delay = lastTickStart + mCountdownInterval - SystemClock.elapsedRealtime();
 
                     //Add
@@ -184,6 +185,7 @@ public abstract class CountDownTimerCopyFromSDK25 {
 
                     // special case: user's onTick took more than interval to
                     // complete, skip to next interval
+                    // 特殊情况：用户的 onTick 执行时间超过了给定的时间间隔 mCountdownInterval，则直接跳到下一次间隔
                     while (delay < 0) delay += mCountdownInterval;
 
                     //Add
