@@ -13,66 +13,71 @@
             android:id="@+id/btn_start_countdown_timer25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startCountdownTimerFromAPI25"
+            android:text="@string/countdown_btn_start_timer25"
             android:textAllCaps="false" />
 
         <EditText
             android:id="@+id/et_countdown_timer25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/input_time_length_s"
+            android:hint="@string/countdown_edt_hint"
             android:inputType="number"
-            android:textSize="12sp" />
+            android:textSize="@dimen/font_12" />
     </LinearLayout>
 
     <LinearLayout
-        style="@style/MatchWidthItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_5"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_start_countdown_timer26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="startCountdownTimerFromAPI26"
+            android:text="@string/countdown_btn_start_timer26"
             android:textAllCaps="false" />
 
         <EditText
             android:id="@+id/et_countdown_timer26"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/input_time_length_s"
+            android:hint="@string/countdown_edt_hint"
             android:inputType="number"
-            android:textSize="12sp" />
+            android:textSize="@dimen/font_12" />
     </LinearLayout>
 
     <LinearLayout
-        style="@style/MatchWidthItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_5"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="5dp"
-            android:text="log:" />
+            android:padding="@dimen/spacing_5"
+            android:text="@string/countdown_log_title" />
 
         <Button
             android:id="@+id/btn_clear_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="clear log"
+            android:text="@string/countdown_btn_clear_log"
             android:textAllCaps="false" />
     </LinearLayout>
 
 
     <TextView
         android:id="@+id/tv_log"
-        style="@style/MatchWidthItem"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/spacing_5"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:fadeScrollbars="false"
-        android:padding="5dp"
+        android:padding="@dimen/spacing_5"
         android:scrollbars="vertical" />
 </LinearLayout>

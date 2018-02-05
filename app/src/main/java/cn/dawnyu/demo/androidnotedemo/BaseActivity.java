@@ -4,30 +4,32 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 
 import cn.dawnyu.demo.androidnotedemo.view.BaseLayout;
 
 /**
- * Created by DawnYu on 2018/1/9.
+ * desc   : BaseActivity.
+ * version: 1.0
+ * date   : 2018/1/9
+ * author : DawnYu
+ * github : DawnYu9
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected BaseLayout baseLayout;
-    protected String title;
-    protected String blogUrl;
-    protected String sourceCodeUrl;
+    public BaseLayout baseLayout;
+    public String activityTitle;
+    public String blogUrl;
+    public String sourceCodeUrl;
 
-    protected void setView(int layoutResId) {
+    public void setView(int layoutResId) {
         baseLayout = new BaseLayout(this, layoutResId);
         setContentView(baseLayout);
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setActivityTitle();
@@ -49,47 +51,46 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void setActivityTitle() {
-        title = getClass().getSimpleName();
-        setTitle(title);
+    public void setActivityTitle() {
+        activityTitle = getClass().getSimpleName();
+        setTitle(activityTitle);
     }
 
-    protected void setBlogUrl(String blogUrl) {
+    public void setBlogUrl(String blogUrl) {
         this.blogUrl = blogUrl;
     }
 
-    protected void initTvBlog() {
+    public void initTvBlog() {
         if (Utils.isNullOrEmpty(blogUrl)) {
             baseLayout.tv_blog.setVisibility(View.GONE);
         } else {
-            baseLayout.tv_blog.setText(Html.fromHtml("<a href='" + blogUrl + "'>" + getString(R.string.see_blog) + "</a>"));
-            baseLayout.tv_blog.setMovementMethod(LinkMovementMethod.getInstance());
+            Utils.setLinkText(baseLayout.tv_blog, getString(R.string.link_txt_see_blog), blogUrl);
         }
     }
 
-    protected void setSourceCodeUrl() {
+    public void setSourceCodeUrl() {
+        //Package name of current activity without the package prefix.
         String simplePackageName = getLocalClassName();
         if (simplePackageName.contains(".")) {
-            sourceCodeUrl = getString(R.string.source_code_url);
+            sourceCodeUrl = getString(R.string.url_github_code);
 
             simplePackageName = simplePackageName.substring(0, simplePackageName.lastIndexOf("."));
             if (!"".equals(simplePackageName)) {
                 sourceCodeUrl += "/" + simplePackageName;
             }
         } else {
-            sourceCodeUrl = getString(R.string.github_repo_url);
+            sourceCodeUrl = getString(R.string.url_github_repo);
         }
 
-        baseLayout.tv_code.setText(Html.fromHtml("<a href='" + sourceCodeUrl + "'>" + getString(R.string.see_code) + "</a>"));
-        baseLayout.tv_code.setMovementMethod(LinkMovementMethod.getInstance());
+        Utils.setLinkText(baseLayout.tv_code, getString(R.string.link_txt_see_code), sourceCodeUrl);
     }
 
-    protected abstract void initView();
+    public abstract void initView();
 
-    protected abstract void registerListener();
+    public abstract void registerListener();
 
     private void setActionBarBackButton() {
-        if (!"MainActivity".equals(title)) {
+        if (!"MainActivity".equals(activityTitle)) {
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setHomeButtonEnabled(true);
@@ -98,13 +99,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected View.OnClickListener onClicker = new View.OnClickListener() {
+    public View.OnClickListener onClicker = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             myClicker(view);
         }
     };
 
-    protected abstract void myClicker(View view);
+    public abstract void myClicker(View view);
 
 }

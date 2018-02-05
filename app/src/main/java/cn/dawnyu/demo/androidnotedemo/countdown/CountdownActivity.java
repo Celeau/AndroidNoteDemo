@@ -13,11 +13,14 @@ import cn.dawnyu.demo.androidnotedemo.BaseActivity;
 import cn.dawnyu.demo.androidnotedemo.R;
 
 /**
- * Created by DawnYu on 2018/1/9.
+ * desc   : About different ways to count down.
+ * version: 1.0
+ * date   : 2018/1/9
+ * author : DawnYu
+ * github : DawnYu9
  */
 
 public class CountdownActivity extends BaseActivity {
-    private static final String BLOG_URL = "http://blog.csdn.net/u013719138/article/details/79012459#t1";
     private final String TAG = getClass().getSimpleName();
 
     private Button btn_start_countdown_timer25, btn_start_countdown_timer26, btn_clear_log;
@@ -29,16 +32,16 @@ public class CountdownActivity extends BaseActivity {
     private StringBuilder sb_log;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         setView(R.layout.activity_countdown);
-        setBlogUrl(BLOG_URL);
+        setBlogUrl(getResources().getString(R.string.countdown_url_blog));
         super.onCreate(savedInstanceState);
 
         sb_log = new StringBuilder();
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         btn_start_countdown_timer25 = findViewById(R.id.btn_start_countdown_timer25);
         btn_start_countdown_timer26 = findViewById(R.id.btn_start_countdown_timer26);
         btn_clear_log = findViewById(R.id.btn_clear_log);
@@ -49,7 +52,7 @@ public class CountdownActivity extends BaseActivity {
     }
 
     @Override
-    protected void registerListener() {
+    public void registerListener() {
         btn_start_countdown_timer25.setOnClickListener(onClicker);
         btn_start_countdown_timer26.setOnClickListener(onClicker);
         btn_clear_log.setOnClickListener(onClicker);
@@ -58,7 +61,7 @@ public class CountdownActivity extends BaseActivity {
     }
 
     @Override
-    protected void myClicker(View view) {
+    public void myClicker(View view) {
         switch (view.getId()) {
             case R.id.btn_start_countdown_timer25:
                 startCountdownTimerFromAPI25();
@@ -130,24 +133,24 @@ public class CountdownActivity extends BaseActivity {
         sb_log.append("start countdown: ").append(String.valueOf(time / 1000)).append("s");
     }
 
-    private void updateLog(long millisUntilFinished, int sdkVersion, boolean isOnTick) {
+    private void updateLog(long millisUntilFinished, int APIVersion, boolean isOnTick) {
         if (sb_log.length() > 0) {
             sb_log.append("\n");
         }
         if (isOnTick) {
-            Log.i(TAG + "-Timer-" + sdkVersion,
+            Log.i(TAG + "-Timer-" + APIVersion,
                     "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
 
             sb_log.append(SystemClock.elapsedRealtime())
                     .append("ms → API-")
-                    .append(sdkVersion)
+                    .append(APIVersion)
                     .append(" → onTick → ")
                     .append(millisUntilFinished / 1000).append("s");
         } else {
-            Log.i(TAG + "-Timer-" + sdkVersion, "onFinish");
+            Log.i(TAG + "-Timer-" + APIVersion, "onFinish");
 
             sb_log.append(SystemClock.elapsedRealtime()).append("ms → API-")
-                    .append(sdkVersion)
+                    .append(APIVersion)
                     .append(" → onFinish")
                     .append("\n-----------------------------");
         }

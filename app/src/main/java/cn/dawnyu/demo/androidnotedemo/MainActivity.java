@@ -7,27 +7,35 @@ import android.widget.Button;
 
 import cn.dawnyu.demo.androidnotedemo.countdown.CountdownActivity;
 
+/**
+ * desc   : MainActivity.
+ * version: 1.0
+ * date   : 2018/1/9
+ * author : DawnYu
+ * github : DawnYu9
+ */
+
 public class MainActivity extends BaseActivity {
     private Button btn_countdown;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         setView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         btn_countdown = findViewById(R.id.btn_countdown);
     }
 
     @Override
-    protected void registerListener() {
+    public void registerListener() {
         btn_countdown.setOnClickListener(onClicker);
     }
 
     @Override
-    protected void myClicker(View view) {
+    public void myClicker(View view) {
         switch (view.getId()) {
             case R.id.btn_countdown:
                 startActivity(new Intent(MainActivity.this, CountdownActivity.class));

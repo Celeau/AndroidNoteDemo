@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="view_content" type="id" />
-    <item name="tv_code" type="id" />
+    <item name="view_activity_content" type="id" />
 </resources>

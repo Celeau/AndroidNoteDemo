@@ -56,7 +56,7 @@ import android.util.Log;
  * date 2018/1/9
  */
 public abstract class CountDownTimerCopyFromAPI26 {
-    String TAG = "CountDownTimer-26";//Add
+    private String TAG = "CountDownTimer-26";//Add
 
     /**
      * Millis since epoch when alarm should stop.
@@ -106,7 +106,7 @@ public abstract class CountDownTimerCopyFromAPI26 {
         }
 
         //Add
-        Log.i(TAG, "start → mMillisInFuture = " + mMillisInFuture + ", seconds = " + mMillisInFuture / 1000 );
+        Log.i(TAG, "start → mMillisInFuture = " + mMillisInFuture + ", seconds = " + mMillisInFuture / 1000);
 
         mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture;
 
@@ -150,7 +150,7 @@ public abstract class CountDownTimerCopyFromAPI26 {
 
                 //Add
                 Log.i(TAG, "handleMessage → elapsedRealtime = " + SystemClock.elapsedRealtime());
-                Log.i(TAG, "handleMessage → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 );
+                Log.i(TAG, "handleMessage → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000);
 
                 if (millisLeft <= 0) {
                     //Add
@@ -162,7 +162,7 @@ public abstract class CountDownTimerCopyFromAPI26 {
 
                     //Add
                     Log.i(TAG, "before onTick → lastTickStart = " + lastTickStart);
-                    Log.i(TAG, "before onTick → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000 );
+                    Log.i(TAG, "before onTick → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000);
 
                     onTick(millisLeft);
 

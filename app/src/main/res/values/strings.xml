@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">AndroidNoteDemo</string>
-    <string name="input_time_length_s">input time length(s)</string>
-    <string name="source_code_url">https://github.com/DawnYu9/AndroidNoteDemo/tree/master/app/src/main/java/cn/dawnyu/demo/androidnotedemo</string>
-    <string name="github_repo_url">https://github.com/DawnYu9/AndroidNoteDemo</string>
-    <string name="see_code">see source code on github</string>
-    <string name="see_blog">see blog</string>
+    <!-- global string -->
+    <string name="url_github_code">https://github.com/DawnYu9/AndroidNoteDemo/tree/master/app/src/main/java/cn/dawnyu/demo/androidnotedemo</string>
+    <string name="url_github_repo">https://github.com/DawnYu9/AndroidNoteDemo</string>
+    <string name="link_txt_see_code">see source code on github</string>
+    <string name="link_txt_see_blog">see blog</string>
+
+    <!-- main activity -->
+    <string name="main_btn_countdown">countdown</string>
+
+    <!-- countdown activity -->
+    <string name="countdown_edt_hint">input time length(s)</string>
+    <string name="countdown_btn_start_timer25">startCountdownTimerFromAPI25</string>
+    <string name="countdown_btn_start_timer26">startCountdownTimerFromAPI26</string>
+    <string name="countdown_log_title">log:</string>
+    <string name="countdown_btn_clear_log">clear log</string>
+    <string name="countdown_url_blog">http://blog.csdn.net/u013719138/article/details/79012459#t1</string>
 </resources>
