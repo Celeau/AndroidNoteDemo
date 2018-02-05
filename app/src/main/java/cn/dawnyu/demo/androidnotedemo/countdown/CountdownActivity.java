@@ -133,24 +133,24 @@ public class CountdownActivity extends BaseActivity {
         sb_log.append("start countdown: ").append(String.valueOf(time / 1000)).append("s");
     }
 
-    private void updateLog(long millisUntilFinished, int APIVersion, boolean isOnTick) {
+    private void updateLog(long millisUntilFinished, int APILevel, boolean isOnTick) {
         if (sb_log.length() > 0) {
             sb_log.append("\n");
         }
         if (isOnTick) {
-            Log.i(TAG + "-Timer-" + APIVersion,
+            Log.i(TAG + "-Timer-" + APILevel,
                     "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
 
             sb_log.append(SystemClock.elapsedRealtime())
                     .append("ms → API-")
-                    .append(APIVersion)
+                    .append(APILevel)
                     .append(" → onTick → ")
                     .append(millisUntilFinished / 1000).append("s");
         } else {
-            Log.i(TAG + "-Timer-" + APIVersion, "onFinish");
+            Log.i(TAG + "-Timer-" + APILevel, "onFinish");
 
             sb_log.append(SystemClock.elapsedRealtime()).append("ms → API-")
-                    .append(APIVersion)
+                    .append(APILevel)
                     .append(" → onFinish")
                     .append("\n-----------------------------");
         }
