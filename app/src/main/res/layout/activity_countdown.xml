@@ -76,7 +76,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/spacing_5"
         android:layout_weight="1"
-        android:background="@color/white"
         android:fadeScrollbars="false"
         android:padding="@dimen/spacing_5"
         android:scrollbars="vertical" />
