@@ -18,7 +18,7 @@ import cn.dawnyu.demo.androidnotedemo.R;
  */
 
 public class BaseLayout extends LinearLayout {
-    public int spacing_5 = getResources().getDimensionPixelOffset(R.dimen.spacing_5);
+    private final int spacing_5 = getResources().getDimensionPixelOffset(R.dimen.spacing_5);
 
     public TextView tv_code;
     public TextView tv_blog;

@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 
 
-public class Utils {
+class Utils {
     /**
      * date 2018/1/25
      */

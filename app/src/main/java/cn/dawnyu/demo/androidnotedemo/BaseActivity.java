@@ -18,12 +18,12 @@ import cn.dawnyu.demo.androidnotedemo.view.BaseLayout;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    public BaseLayout baseLayout;
-    public String activityTitle;
-    public String blogUrl;
-    public String sourceCodeUrl;
+    private BaseLayout baseLayout;
+    private String activityTitle;
+    private String blogUrl;
+    private String sourceCodeUrl;
 
-    public void setView(int layoutResId) {
+    protected void setView(int layoutResId) {
         baseLayout = new BaseLayout(this, layoutResId);
         setContentView(baseLayout);
     }
@@ -51,16 +51,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setActivityTitle() {
+    private void setActivityTitle() {
         activityTitle = getClass().getSimpleName();
         setTitle(activityTitle);
     }
 
-    public void setBlogUrl(String blogUrl) {
+    protected void setBlogUrl(String blogUrl) {
         this.blogUrl = blogUrl;
     }
 
-    public void initTvBlog() {
+    private void initTvBlog() {
         if (Utils.isNullOrEmpty(blogUrl)) {
             baseLayout.tv_blog.setVisibility(View.GONE);
         } else {
@@ -68,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void setSourceCodeUrl() {
+    private void setSourceCodeUrl() {
         //Package name of current activity without the package prefix.
         String simplePackageName = getLocalClassName();
         if (simplePackageName.contains(".")) {
@@ -85,9 +85,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         Utils.setLinkText(baseLayout.tv_code, getString(R.string.link_txt_see_code), sourceCodeUrl);
     }
 
-    public abstract void initView();
+    protected abstract void initView();
 
-    public abstract void registerListener();
+    protected abstract void registerListener();
 
     private void setActionBarBackButton() {
         if (!"MainActivity".equals(activityTitle)) {
@@ -99,13 +99,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public View.OnClickListener onClicker = new View.OnClickListener() {
+    protected View.OnClickListener onClicker = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             myClicker(view);
         }
     };
 
-    public abstract void myClicker(View view);
+    protected abstract void myClicker(View view);
 
 }
