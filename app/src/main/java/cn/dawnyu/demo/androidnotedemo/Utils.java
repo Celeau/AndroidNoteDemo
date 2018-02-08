@@ -18,11 +18,7 @@ public class Utils {
      * date 2018/1/25
      */
     public static boolean isNullOrEmpty(String s) {
-        if (s == null || "".equals(s.trim()) || s.trim().length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return s == null || "".equals(s.trim()) || s.trim().length() == 0;
     }
 
     /**
