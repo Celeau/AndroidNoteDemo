@@ -21,7 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private BaseLayout baseLayout;
     private String activityTitle;
     private String blogUrl;
-    private String sourceCodeUrl;
 
     protected void setView(int layoutResId) {
         baseLayout = new BaseLayout(this, layoutResId);
@@ -71,6 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setSourceCodeUrl() {
         //Package name of current activity without the package prefix.
         String simplePackageName = getLocalClassName();
+        String sourceCodeUrl;
         if (simplePackageName.contains(".")) {
             sourceCodeUrl = getString(R.string.url_github_code);
 

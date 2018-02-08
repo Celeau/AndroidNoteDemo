@@ -33,6 +33,11 @@ public class BaseLayout extends LinearLayout {
         setOrientation(VERTICAL);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if (inflater == null) {
+            throw new NullPointerException("inflater is null");
+        }
+
         View view_activity_content = inflater.inflate(layoutResId, null);
         view_activity_content.setId(R.id.view_activity_content);
 
