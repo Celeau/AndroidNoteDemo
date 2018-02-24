@@ -49,14 +49,15 @@ import android.util.Log;
  */
 
 /**
- * Copy from API 25 's CountDownTimer.
- * API 25 CountDownTimer 的源码副本。
- * 仅增加了中文注释和 Log 打印代码。(注释为 Add 的代码)
+ * Improve from API 25 's CountDownTimer.
+ * API 25 CountDownTimer 的源码副本的改进版本。
+ * 标注了 Add 的代码为 增加了中文注释和 Log 打印代码；
+ * 标注了 Improve 的代码为改进的地方
  * <p>
  * date 2018/1/9
  */
-public abstract class CountDownTimerCopyFromAPI25 {
-    private String TAG = "CountDownTimer-25";//Add
+public abstract class CountDownTimerImproveFromAPI25 {
+    private String TAG = "CountDownTimer-IMPR-25";//Add
 
     /**
      * Millis since epoch when alarm should stop.
@@ -82,8 +83,11 @@ public abstract class CountDownTimerCopyFromAPI25 {
      * @param countDownInterval The interval along the way to receive
      *                          {@link #onTick(long)} callbacks.
      */
-    public CountDownTimerCopyFromAPI25(long millisInFuture, long countDownInterval) {
-        mMillisInFuture = millisInFuture;
+    public CountDownTimerImproveFromAPI25(long millisInFuture, long countDownInterval) {
+        //Improve: 解决 问题1 和 问题2 的计时显示误差问题，但这会导致倒计时总时长变长了。
+        mMillisInFuture = millisInFuture + 20;
+
+//        mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
     }
 
@@ -98,7 +102,7 @@ public abstract class CountDownTimerCopyFromAPI25 {
     /**
      * Start the countdown.
      */
-    public synchronized final CountDownTimerCopyFromAPI25 start() {
+    public synchronized final CountDownTimerImproveFromAPI25 start() {
         mCancelled = false;
         if (mMillisInFuture <= 0) {
             onFinish();
@@ -142,7 +146,7 @@ public abstract class CountDownTimerCopyFromAPI25 {
         @Override
         public void handleMessage(Message msg) {
 
-            synchronized (CountDownTimerCopyFromAPI25.this) {
+            synchronized (CountDownTimerImproveFromAPI25.this) {
                 if (mCancelled) {
                     return;
                 }
@@ -162,8 +166,12 @@ public abstract class CountDownTimerCopyFromAPI25 {
                     //Add
                     Log.i(TAG, "handleMessage → millisLeft < mCountdownInterval !");
 
-                    // no tick, just delay until done
-                    //不执行 onTick(),直接延迟直到计时结束
+                    //Improve: 执行 onTick()
+                    Log.i(TAG, "before onTick → millisLeft = " + millisLeft + ", seconds = " + millisLeft / 1000);
+                    onTick(millisLeft);
+
+                    /*// no tick, just delay until done
+                    //不执行 onTick(),直接延迟直到计时结束*/
                     sendMessageDelayed(obtainMessage(MSG), millisLeft);
                 } else {
                     long lastTickStart = SystemClock.elapsedRealtime();

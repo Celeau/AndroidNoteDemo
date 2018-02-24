@@ -23,11 +23,13 @@ import cn.dawnyu.demo.androidnotedemo.R;
 public class CountdownActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
 
-    private Button btn_start_countdown_timer25, btn_start_countdown_timer26, btn_clear_log;
-    private EditText et_countdown_timer25, et_countdown_timer26;
+    private Button btn_start_countdown_timer25, btn_start_countdown_timer25_add,
+            btn_start_countdown_timer26, btn_start_countdown_timer26_round, btn_clear_log;
+    private EditText et_countdown_timer25, et_countdown_timer25_add, et_countdown_timer26, et_countdown_timer26_round;
     private TextView tv_log;
 
     private CountDownTimerCopyFromAPI25 countDownTimerFromAPI25;
+    private CountDownTimerImproveFromAPI25 countDownTimerImproveFromAPI25;
     private CountDownTimerCopyFromAPI26 countDownTimerFromAPI26;
     private StringBuilder sb_log;
 
@@ -43,18 +45,24 @@ public class CountdownActivity extends BaseActivity {
     @Override
     public void initView() {
         btn_start_countdown_timer25 = findViewById(R.id.btn_start_countdown_timer25);
+        btn_start_countdown_timer25_add = findViewById(R.id.btn_start_countdown_timer25_add);
         btn_start_countdown_timer26 = findViewById(R.id.btn_start_countdown_timer26);
+        btn_start_countdown_timer26_round = findViewById(R.id.btn_start_countdown_timer26_round);
         btn_clear_log = findViewById(R.id.btn_clear_log);
         tv_log = findViewById(R.id.tv_log);
 
         et_countdown_timer25 = findViewById(R.id.et_countdown_timer25);
+        et_countdown_timer25_add = findViewById(R.id.et_countdown_timer25_add);
         et_countdown_timer26 = findViewById(R.id.et_countdown_timer26);
+        et_countdown_timer26_round = findViewById(R.id.et_countdown_timer26_round);
     }
 
     @Override
     public void registerListener() {
         btn_start_countdown_timer25.setOnClickListener(onClicker);
+        btn_start_countdown_timer25_add.setOnClickListener(onClicker);
         btn_start_countdown_timer26.setOnClickListener(onClicker);
+        btn_start_countdown_timer26_round.setOnClickListener(onClicker);
         btn_clear_log.setOnClickListener(onClicker);
 
         tv_log.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -66,8 +74,14 @@ public class CountdownActivity extends BaseActivity {
             case R.id.btn_start_countdown_timer25:
                 startCountdownTimerFromAPI25();
                 break;
+            case R.id.btn_start_countdown_timer25_add:
+                startCountdownTimerImprovedAPI25();
+                break;
             case R.id.btn_start_countdown_timer26:
                 startCountdownTimerFromAPI26();
+                break;
+            case R.id.btn_start_countdown_timer26_round:
+                startCountdownTimerImprovedAPI26();
                 break;
             case R.id.btn_clear_log:
                 clearLog();
@@ -78,6 +92,7 @@ public class CountdownActivity extends BaseActivity {
     private void startCountdownTimerFromAPI25() {
         if (countDownTimerFromAPI25 != null) {
             countDownTimerFromAPI25.cancel();
+            countDownTimerFromAPI25 = null;
         }
 
         Long time = getTime(et_countdown_timer25);
@@ -87,12 +102,35 @@ public class CountdownActivity extends BaseActivity {
         countDownTimerFromAPI25 = new CountDownTimerCopyFromAPI25(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                updateLog(millisUntilFinished, 25, true);
+                updateLog("Timer-25", millisUntilFinished, true);
             }
 
             @Override
             public void onFinish() {
-                updateLog(0, 25, false);
+                updateLog("Timer-25", 0, false);
+            }
+        }.start();
+    }
+
+    private void startCountdownTimerImprovedAPI25() {
+        if (countDownTimerImproveFromAPI25 != null) {
+            countDownTimerImproveFromAPI25.cancel();
+            countDownTimerImproveFromAPI25 = null;
+        }
+
+        Long time = getTime(et_countdown_timer25_add);
+
+        updateLogTitle(time);
+
+        countDownTimerImproveFromAPI25 = new CountDownTimerImproveFromAPI25(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateLog("Timer-IMPR-25", millisUntilFinished, true);
+            }
+
+            @Override
+            public void onFinish() {
+                updateLog("Timer-IMPR-25", 0, false);
             }
         }.start();
     }
@@ -100,6 +138,7 @@ public class CountdownActivity extends BaseActivity {
     private void startCountdownTimerFromAPI26() {
         if (countDownTimerFromAPI26 != null) {
             countDownTimerFromAPI26.cancel();
+            countDownTimerFromAPI26 = null;
         }
 
         Long time = getTime(et_countdown_timer26);
@@ -109,12 +148,35 @@ public class CountdownActivity extends BaseActivity {
         countDownTimerFromAPI26 = new CountDownTimerCopyFromAPI26(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                updateLog(millisUntilFinished, 26, true);
+                updateLog("Timer-26", millisUntilFinished, true);
             }
 
             @Override
             public void onFinish() {
-                updateLog(0, 26, false);
+                updateLog("Timer-26", 0, false);
+            }
+        }.start();
+    }
+
+    private void startCountdownTimerImprovedAPI26() {
+        if (countDownTimerFromAPI26 != null) {
+            countDownTimerFromAPI26.cancel();
+            countDownTimerFromAPI26 = null;
+        }
+
+        Long time = getTime(et_countdown_timer26_round);
+
+        updateLogTitle(time);
+
+        countDownTimerFromAPI26 = new CountDownTimerCopyFromAPI26(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateLog("Timer-IMPR-26", millisUntilFinished, true);
+            }
+
+            @Override
+            public void onFinish() {
+                updateLog("Timer-IMPR-26", 0, false);
             }
         }.start();
     }
@@ -133,30 +195,47 @@ public class CountdownActivity extends BaseActivity {
         sb_log.append("start countdown: ").append(String.valueOf(time / 1000)).append("s");
     }
 
-    private void updateLog(long millisUntilFinished, int APILevel, boolean isOnTick) {
+    private void updateLog(String tag, long millisUntilFinished, boolean isOnTick) {
         if (sb_log.length() > 0) {
             sb_log.append("\n");
         }
         if (isOnTick) {
-            Log.i(TAG + "-Timer-" + APILevel,
-                    "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
+            if (tag.contains("Timer-IMPR-26")) {
+                Log.i(TAG + "-" + tag,
+                        "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + getSeconds(millisUntilFinished));
 
-            sb_log.append(SystemClock.elapsedRealtime())
-                    .append("ms → API-")
-                    .append(APILevel)
-                    .append(" → onTick → ")
-                    .append(millisUntilFinished / 1000).append("s");
+                sb_log.append(SystemClock.elapsedRealtime())
+                        .append("ms → ")
+                        .append(tag)
+                        .append(" → onTick → ")
+                        .append(getSeconds(millisUntilFinished))
+                        .append("s");
+            } else {
+                Log.i(TAG + "-" + tag,
+                        "onTick → millisUntilFinished = " + millisUntilFinished + ", seconds = " + millisUntilFinished / 1000);
+
+                sb_log.append(SystemClock.elapsedRealtime())
+                        .append("ms → ")
+                        .append(tag)
+                        .append(" → onTick → ")
+                        .append(millisUntilFinished / 1000)
+                        .append("s");
+            }
         } else {
-            Log.i(TAG + "-Timer-" + APILevel, "onFinish");
+            Log.i(TAG + "-" + tag, "onFinish");
 
-            sb_log.append(SystemClock.elapsedRealtime()).append("ms → API-")
-                    .append(APILevel)
+            sb_log.append(SystemClock.elapsedRealtime()).append("ms → ")
+                    .append(tag)
                     .append(" → onFinish")
                     .append("\n-----------------------------");
         }
 
         tv_log.setText(sb_log.toString());
         scrollToLastLine(tv_log);
+    }
+
+    private long getSeconds(long millis) {
+        return Math.round((double) millis / 1000);
     }
 
     private void scrollToLastLine(TextView tv) {

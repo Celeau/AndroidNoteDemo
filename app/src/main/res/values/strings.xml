@@ -12,7 +12,9 @@
     <!-- countdown activity -->
     <string name="countdown_edt_hint">input time length(s)</string>
     <string name="countdown_btn_start_timer25">startCountdownTimerFromAPI25</string>
+    <string name="countdown_btn_start_timer25_add">startCountdownTimerAPI25Add</string>
     <string name="countdown_btn_start_timer26">startCountdownTimerFromAPI26</string>
+    <string name="countdown_btn_start_timer26_round">startCountdownTimerAPI26Round</string>
     <string name="countdown_log_title">log:</string>
     <string name="countdown_btn_clear_log">clear log</string>
     <string name="countdown_url_blog">http://blog.csdn.net/u013719138/article/details/79012459#t1</string>

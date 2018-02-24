@@ -167,21 +167,26 @@ public abstract class CountDownTimerCopyFromAPI26 {
                     onTick(millisLeft);
 
                     // take into account user's onTick taking time to execute
+                    // 考虑到用户执行 onTick 需要时间
                     long lastTickDuration = SystemClock.elapsedRealtime() - lastTickStart;
                     long delay;
 
                     //Add
                     Log.i(TAG, "after onTick → lastTickDuration = " + lastTickDuration);
+                    Log.i(TAG, "after onTick → elapsedRealtime = " + SystemClock.elapsedRealtime());
 
                     if (millisLeft < mCountdownInterval) {
                         // just delay until done
+                        //直接延迟到计时结束
                         delay = millisLeft - lastTickDuration;
 
                         //Add
+                        Log.i(TAG, "millisLeft < mCountdownInterval!");
                         Log.i(TAG, "after onTick → delay1 = " + delay);
 
                         // special case: user's onTick took more than interval to
                         // complete, trigger onFinish without delay
+                        // 特殊情况：用户的 onTick 执行时间超过了给定的时间间隔 mCountdownInterval，则立即触发 onFinish
                         if (delay < 0) delay = 0;
 
                         //Add
@@ -194,11 +199,15 @@ public abstract class CountDownTimerCopyFromAPI26 {
 
                         // special case: user's onTick took more than interval to
                         // complete, skip to next interval
+                        // 特殊情况：用户的 onTick 执行时间超过了给定的时间间隔 mCountdownInterval，则直接跳到下一次间隔
                         while (delay < 0) delay += mCountdownInterval;
 
                         //Add
                         Log.i(TAG, "after onTick → delay2 = " + delay);
                     }
+
+                    //Add
+                    Log.i(TAG, "before send msg → elapsedRealtime = " + SystemClock.elapsedRealtime());
 
                     sendMessageDelayed(obtainMessage(MSG), delay);
                 }
